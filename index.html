@@ -7,8 +7,60 @@
 </head>
 <body>
   <h1>Harry Potter Characters</h1>
-  <div id="characters" class="characters-container"></div>
+  <div class="characters-container" id="characters"></div>
 
-  <script src="script.js"></script>
+  <script>
+    const charactersContainer = document.getElementById("characters");
+
+    // List of valid characters based on your GitHub folder
+    const validCharacters = [
+      "Cedric Diggory",
+      "Charlie Weasley",
+      "Draco Malfoy",
+      "Fred Weasley",
+      "George Weasley",
+      "Ginny Weasley",
+      "Harry Potter",
+      "Hermione Granger",
+      "James Potter",
+      "Lord Voldemort",
+      "Luna Lovegood",
+      "Minerva McGonagall",
+      "Molly Weasley",
+      "Neville Longbottom",
+      "Nymphadora Tonks",
+      "Percy Weasley",
+      "Remus Lupin",
+      "Ron Weasley",
+      "Rubeus Hagrid",
+      "Severus Snape",
+      "Sirius Black"
+    ];
+
+    fetch("https://hp-api.onrender.com/api/characters")
+      .then(response => response.json())
+      .then(data => {
+        data
+          .filter(character => validCharacters.includes(character.name))
+          .forEach(character => {
+            const filename = character.name.toLowerCase().replace(/ /g, "_") + ".png";
+            const imageUrl = `images/characters/${filename}`;
+
+            const card = document.createElement("div");
+            card.className = "character-card";
+            card.innerHTML = `
+              <img src="${imageUrl}" alt="${character.name}">
+              <h3>${character.name}</h3>
+              <p><strong>House:</strong> ${character.house || 'Unknown'}</p>
+              <p><strong>Actor:</strong> ${character.actor || 'N/A'}</p>
+            `;
+            charactersContainer.appendChild(card);
+          });
+      })
+      .catch(error => {
+        console.error("Error fetching character data:", error);
+        charactersContainer.innerHTML = "<p>Something went wrong. Please try again later.</p>";
+      });
+  </script>
 </body>
 </html>
