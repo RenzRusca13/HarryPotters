@@ -7,63 +7,8 @@
 </head>
 <body>
   <h1>Harry Potter Characters</h1>
-  <div class="characters-container" id="characters"></div>
+  <div id="characters" class="characters-container"></div>
 
-  <script>
-    const charactersContainer = document.getElementById("characters");
-
-    // Mapping of character names to image filenames (based on GitHub screenshot)
-    const characterImages = {
-      "cedric diggory": "cedric_diggory.png",
-      "charlie weasley": "charlie_weasley.png",
-      "draco malfoy": "draco_malfoy.png",
-      "fred weasley": "fred_weasley.png",
-      "george weasley": "george_weasley.png",
-      "ginny weasley": "ginny_weasley.png",
-      "harry potter": "harry_potter.png",
-      "hermione granger": "hermione_granger.png",
-      "james potter": "james_potter.png",
-      "lord voldemort": "lord_voldemort.png",
-      "luna lovegood": "luna_lovegood.png",
-      "minerva mcgonagall": "minerva_mcgonagall.png",
-      "molly weasley": "molly_weasley.png",
-      "neville longbottom": "neville_longbottom.png",
-      "nymphadora tonks": "nymphadora_tonks.png",
-      "percy weasley": "percy_weasley.png",
-      "remus lupin": "remus_lupin.png",
-      "ron weasley": "ron_weasley.png",
-      "rubeus hagrid": "rubeus_hagrid.png",
-      "severus snape": "severus_snape.png",
-      "sirius black": "sirius_black.png"
-    };
-
-    fetch("https://hp-api.onrender.com/api/characters")
-      .then(response => response.json())
-      .then(data => {
-        data
-          .filter(character => {
-            const key = character.name.toLowerCase();
-            return characterImages.hasOwnProperty(key);
-          })
-          .forEach(character => {
-            const key = character.name.toLowerCase();
-            const imageUrl = `images/characters/${characterImages[key]}`;
-
-            const card = document.createElement("div");
-            card.className = "character-card";
-            card.innerHTML = `
-              <img src="${imageUrl}" alt="${character.name}">
-              <h3>${character.name}</h3>
-              <p><strong>House:</strong> ${character.house || 'Unknown'}</p>
-              <p><strong>Actor:</strong> ${character.actor || 'N/A'}</p>
-            `;
-            charactersContainer.appendChild(card);
-          });
-      })
-      .catch(error => {
-        console.error("Error fetching character data:", error);
-        charactersContainer.innerHTML = "<p>Something went wrong. Please try again later.</p>";
-      });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
