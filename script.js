@@ -1,3 +1,5 @@
+// Improve accessibility with better alt attributes.
+
 const charactersContainer = document.getElementById("characters");
 
 fetch("https://hp-api.onrender.com/api/characters")
